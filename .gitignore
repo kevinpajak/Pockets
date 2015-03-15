@@ -3,5 +3,7 @@
 .idea/
 
 # Ignore that __pycache__ business
-*.pyc
 __pycache__/
+*.pyc
+*.pyo
+
