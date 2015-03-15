@@ -5,4 +5,4 @@
 # Ignore that __pycache__ business
 *.pyc
 *.pyo
-
+__pycache__/
