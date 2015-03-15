@@ -32,12 +32,14 @@ class LoginForm(forms.ModelForm):
         return getattr(self, "_user", None)
 
 
-# Most  of  this  form  was based on the form found
-# inside  django.contrib.auth.   Figure,  the  best
-# people  to emulate  would  be  the   contributors
-# to Django themselves.  Of course,  I  also had to
-# dig through the documentation to figure out  what
-# all this clean this and clean that business is...
+'''
+ Most  of  this  form  was based on the form found
+ inside  django.contrib.auth.   Figure,  the  best
+ people  to emulate  would  be  the   contributors
+ to Django themselves.  Of course,  I  also had to
+ dig through the documentation to figure out  what
+ all this clean this and clean that business is...
+'''
 
 class ProfileForm(forms.ModelForm):
 

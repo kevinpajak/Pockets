@@ -5,10 +5,12 @@ from django.core.urlresolvers import reverse
 from django.template import loader, Context
 
 
-# Okay...  The realization there's some hard-coding
-# is not lost upon me here. If this ever goes live;
-# be rest  assured user,  the  hard-coding  will be
-# removed.
+'''
+ Okay...  The realization there's some hard-coding
+ is not lost upon me here. If this ever goes live;
+ be rest  assured user,  the  hard-coding  will be
+ removed.
+'''
 
 def send_mail_bespoke(request, user, view_to_a_kill):
     actvte_url = reverse(view_to_a_kill, kwargs={

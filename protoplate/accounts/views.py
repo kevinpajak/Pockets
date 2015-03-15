@@ -43,17 +43,19 @@ def signup(request, template="accounts/signup.html"):
     return render(request, template, cntxt)
 
 
-# THIS IS WHERE I'M CURRENTLY AT as of  03-13-2015!
+'''
+ THIS IS WHERE I'M CURRENTLY AT as of  03-13-2015!
 
-# Ideally,   I'd   like  to  use  the  authenticate()
-# method in  django.contrib.auth to   avoid importing
-# the token  generator and authentication jive again,
-# but I haven't been able to get it to work. Probably
-# need  to make a  custom  authentication   "backend"
-# function so to speak.  Anyhow, I'm having a  little
-# trouble logging in, because  this  "authentication"
-# doesn't seem to be good enough for the login method
-# from django.contrib.auth
+ Ideally,   I'd   like  to  use  the  authenticate()
+ method in  django.contrib.auth to   avoid importing
+ the token  generator and authentication jive again,
+ but I haven't been able to get it to work. Probably
+ need  to make a  custom  authentication   "backend"
+ function so to speak.  Anyhow, I'm having a  little
+ trouble logging in, because  this  "authentication"
+ doesn't seem to be good enough for the login method
+ from django.contrib.auth
+'''
 
 def activate_account(request, uidb36=None, token=None):
     User = get_user_model()
@@ -76,10 +78,12 @@ def activate_account(request, uidb36=None, token=None):
             "Link no longer valid...")) # Placeholder
 
 
-# Honestly, I was a bit tired when punching this
-# up.   The settings.py file should be available
-# everywhere....  Maybe  I'll   try  calling  it
-# straight up sometime in the near future.
+'''
+ Honestly, I was a bit tired when punching this
+ up.   The settings.py file should be available
+ everywhere....  Maybe  I'll   try  calling  it
+ straight up sometime in the near future.
+'''
 
 @login_required
 def profile(

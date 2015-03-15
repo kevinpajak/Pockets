@@ -5,12 +5,14 @@ from django.core import validators
 from django.utils import timezone
 
 
-# I've inherited from the  base UserManager  and
-# have only overridden one method in the  class.
-# It's probably a bit dangerous to override like
-# this too frequently, but here...  I think I'll
-# take the chance  for  the  sake of having less
-# lines of  code.
+'''
+ I've inherited from the  base UserManager  and
+ have only overridden one method in the  class.
+ It's probably a bit dangerous to override like
+ this too frequently, but here...  I think I'll
+ take the chance  for  the  sake of having less
+ lines of  code.
+'''
 
 class BespokeUserManager(UserManager):
 
@@ -31,9 +33,11 @@ class BespokeUserManager(UserManager):
         return user
 
 
-# Just for the moment.  Probably will change
-# the fields in the future.  I  think  a bio
-# isn't super-required.
+'''
+ Just for the moment.  Probably will change
+ the fields in the future.  I  think  a bio
+ isn't super-required.
+'''
 
 class BespokeUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(_('username'), max_length=32, unique=True,
