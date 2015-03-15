@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>The Profile</title>
+</head>
+<body>
+{% if user.is_authenticated %}
+<h1>The one and only {{ user.username }}!!!</h1>
+<img src={{ img_url }}{{ pic }}><br />
+<a href="/content/content/">Go Back</a><br />
+{% else %}
+<a href="/">Go back to homepage!</a>
+{% endif %}
+</body>
+</html>
