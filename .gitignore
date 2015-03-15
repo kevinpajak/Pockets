@@ -2,3 +2,6 @@
 *.iml
 .idea/
 
+# Ignore that __pycache__ business
+*.pyc
+__pycache__/
