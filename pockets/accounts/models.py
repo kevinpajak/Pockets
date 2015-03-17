@@ -6,11 +6,11 @@ from django.utils import timezone
 
 
 """
-I've inherited from the base UserManager and
-have only overridden one method in the class.
+I've inherited from  the  base UserManager and
+have only overridden one  method in the class.
 It's probably a bit dangerous to override like
-this too frequently, but here... I think I'll
-take the chance for the sake of having less
+this too frequently, but here...  I think I'll
+take the chance  for the sake of  having  less
 lines of code.
 """
 class BespokeUserManager(UserManager):
@@ -34,8 +34,8 @@ class BespokeUserManager(UserManager):
 
 """
 Just for the moment. Probably will change
-the fields in the future. I think a bio
-isn't super-required.
+the fields in the future.  I  think a bio
+isn't terribly required.
 """
 class BespokeUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(_('username'), max_length=32, unique=True,
@@ -50,7 +50,7 @@ class BespokeUser(AbstractBaseUser, PermissionsMixin):
                                 error_messages={
                                     'unique': _("A user with that username already exists."),
                                     }
-    )
+                                )
     first_name = models.CharField(_('first name'), max_length=32, blank=True)
     last_name = models.CharField(_('last name'), max_length=32, blank=True)
     email = models.EmailField(_('email address'), blank=True, unique=True)

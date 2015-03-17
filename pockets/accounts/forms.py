@@ -66,7 +66,7 @@ class ProfileForm(forms.ModelForm):
         boolA, boolB = username.lower(), slugify(username).lower()
         if boolA != boolB:
             raise valerr(self.err_msg['slugo_uname'])
-        if query is []: # Y'know...  This could be a bad idea...
+        if len(query) > 0:
             raise valerr(self.err_msg['un_taken'])
         return username
 

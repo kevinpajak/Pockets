@@ -7,3 +7,6 @@
 *.pyo
 __pycache__/
 migrations/
+
+# For now, ignore some JPEGs
+*.jpg
