@@ -14,13 +14,14 @@ from utilities import email
 User = get_user_model()
 
 
-def login(request, template="accounts/login.html"):
+def login(request,
+          just_activated=False, template="accounts/login.html"):
     form = LoginForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
         auth_user = form.save()
         aka_login(request, auth_user)
         return HttpResponseRedirect('/content/content/')
-    cntxt = {'form': form, 'title': _("Login")}
+    cntxt = {'form': form, 'title': _("Login"), 'just_activated': just_activated}
     return render(request, template, cntxt)
 
 
@@ -46,6 +47,8 @@ def signup(request, template="accounts/signup.html"):
     return render(request, template, cntxt)
 
 
+# Man...  Forget reverse!  I'll just call the friggin' view itself!
+
 def activate_account(
         request, uidb36=None, token=None):
     id_key = base36_to_int(uidb36)
@@ -55,7 +58,7 @@ def activate_account(
             and def_token_gen.check_token(new_user, token):
         new_user.is_active = True
         new_user.save()
-        return HttpResponseRedirect('/accounts/login/')
+        return login(request, just_activated=True)
     else:
         return HttpResponseRedirect('/')
 

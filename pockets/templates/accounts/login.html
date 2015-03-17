@@ -6,9 +6,16 @@
 <body>
 <h1>Login</h1>
 
+{% if just_activated %}
+    <strong>
+        Your account is now activated.  Please login.
+    </strong>
+{% endif %}
+
 <form id="login_form" method="POST" action="/accounts/login/">
     <b> {{ form.non_field_errors }} </b>
     {% csrf_token %}
+    <br />
     Email:    <input type="text" name="email" value="" size="50" /><br />
     Password: <input type="password" name="password" value="" size="50" /><br />
     <input type="submit" value="submit" />
