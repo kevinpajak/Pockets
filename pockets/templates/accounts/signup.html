@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+</head>
+<body>
+<h1>Sign Up Here</h1>
+{% if signedup %}
+<strong>You successfully signed up.</strong>
+<a href="/accounts/">Please go back to the homepage.</a><br />
+{% else %}
+<strong>Sign up!</strong><br />
+<form id="user_form" method="POST" action="/accounts/signup/" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Email: {{ form.email }} <br />
+         Username: {{ form.username }} <br /> -->
+    {{ form.as_p }}
+    {{ pic.as_p }}
+    <input type="submit" name="submit" value="Sign Up" />
+</form>
+{% endif %}
+</body>
+</html>
