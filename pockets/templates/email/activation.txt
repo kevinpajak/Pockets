@@ -1,2 +1,0 @@
-"Click this link to activate your account!"
-http://{{ host }}{{ actv_url }}
