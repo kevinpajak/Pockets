@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, get_user_model
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.text import slugify
-from django.forms import ValidationError as valerr
+from django.forms import ValidationError as valderr
 from django import forms
 
 
@@ -23,9 +23,9 @@ class LoginForm(forms.ModelForm):
         password = self.cleaned_data['password']
         self._user = authenticate(username=email, password=password)
         if self._user is None:
-            raise valerr(self.err_msg['invalid'])
+            raise valderr(self.err_msg['invalid'])
         elif not self._user.is_active:
-            raise valerr(self.err_msg['nactive'])
+            raise valderr(self.err_msg['nactive'])
         return self.cleaned_data
 
     def save(self):
@@ -65,25 +65,25 @@ class ProfileForm(forms.ModelForm):
         query = User.objects.filter(username__iexact=username)
         boolA, boolB = username.lower(), slugify(username).lower()
         if boolA != boolB:
-            raise valerr(self.err_msg['slugo_uname'])
+            raise valderr(self.err_msg['slugo_uname'])
         if len(query) > 0:
-            raise valerr(self.err_msg['un_taken'])
+            raise valderr(self.err_msg['un_taken'])
         return username
 
     def clean_password2(self):
         password1 = self.cleaned_data['password1']
         password2 = self.cleaned_data['password2']
         if password1 and password2 and password1 != password2:
-            raise valerr(self.err_msg['pw_missed'])
+            raise valderr(self.err_msg['pw_missed'])
         if len(password1) < self.min_len:
-            raise valerr(self.err_msg['too_short'])
+            raise valderr(self.err_msg['too_short'])
         return password2
 
     def clean_email(self):
         email = self.cleaned_data['email']
         query = User.objects.filter(email__iexact=email)
         if len(query) > 0:
-            raise valerr(self.err_msg['em_taken'])
+            raise valderr(self.err_msg['em_taken'])
         return email
 
     def save(self, commit=True):
@@ -107,7 +107,8 @@ class TermsForm(forms.Form):
         label=_('I agree to terms.'), widget=forms.CheckboxInput,
         error_messages={'required': err_msg})
 
-# TODO's: Need a password reset form
 
+class PasswordResetForm(forms.Form):
+    pass
 
 

@@ -5,12 +5,27 @@
     <title>The Profile</title>
 </head>
 <body>
+
 {% if user.is_authenticated %}
-<h1>The one and only {{ user.username }}!!!</h1>
-<img src={{ img_url }}{{ pic }}><br />
-<a href="/content/content/">Go Back</a><br />
+    <h1>The one and only {{ user.first_name }}!!!</h1>
+    {% if editable %}
+        <form id="user_form" method="POST" action="/accounts/edit_profile/" enctype="multipart/form-data">
+            {% csrf_token %}
+            Upload Pic: {{ pic.pic }}    <br />
+            Usertag: {{ form.username }} <br />
+            Biography: {{ form.bio }}    <br /><br />
+            <input type="submit" name="submit" value="Edit" />
+        </form>
+    {% else %}
+        <img src={{ img_url }}{{ user.picture }}><br /><br />
+        Usertag: {{ user.username }} <br />
+        Biography: {{ user.bio }}    <br /><br />
+        <a href="/accounts/edit_profile/">Edit Profile</a><br />
+        <a href="/content/content/">Back to Content</a><br />
+    {% endif %}
 {% else %}
-<a href="/">Go back to homepage!</a>
+    <a href="/">Go back to homepage!</a>
 {% endif %}
+
 </body>
 </html>

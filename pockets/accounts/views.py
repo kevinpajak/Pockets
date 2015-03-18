@@ -42,8 +42,8 @@ def signup(request, template="accounts/signup.html"):
         if not new_user.is_active:
             email.send_mail_bespoke(request, new_user, "activate")
             return HttpResponse(_("Activation email sent!"))
-    cntxt = {"form": form,
-             "pic": pic, "title": _("Sign up")}
+    cntxt = {"form": form, "pic": pic,
+             "title": _("Sign Up"), "editable": False}
     return render(request, template, cntxt)
 
 
@@ -63,18 +63,31 @@ def activate_account(
         return HttpResponseRedirect('/')
 
 
-"""
-Okay...  This isn't very elegant.  I'll try to
-get  those  settings  a little  more  smoothly
-than this.
-"""
 @login_required
 def profile(
         request, template="accounts/profile.html"):
     from pockets import settings
     media_url = getattr(settings, 'MEDIA_URL', '')
-    prof_img = request.user.picture
-    cntxt = {'img_url': media_url, "pic": prof_img}
-    return render(
-        request, template, cntxt)
+    cntxt = {'img_url': media_url}
+    return render(request, template, cntxt)
 
+
+"""
+Can't seem to update the profile...  Maybe
+reusing   profile.html  is  something of a
+bad idea?
+"""
+@login_required
+def edit_profile(
+        request, template="accounts/profile.html"):
+    form = ProfileForm(request.POST)
+    pic = ProfileImage(request.POST, request.FILES)
+    if request.method == "POST" and form.is_valid():
+        user = form.save()
+        if 'picture' in request.FILES:
+            user.picture = request.FILES['picture']
+        user.save()
+        return HttpResponseRedirect('/accounts/profile/')
+    cntxt = {"form": form, "pic": pic,
+             "title": _("Edit Profile"), "editable": True}
+    return render(request, template, cntxt)

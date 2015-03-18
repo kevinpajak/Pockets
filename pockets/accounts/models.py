@@ -6,7 +6,7 @@ from django.utils import timezone
 
 
 """
-I've inherited from  the  base UserManager and
+I've inherited from  the  auth UserManager and
 have only overridden one  method in the class.
 It's probably a bit dangerous to override like
 this too frequently, but here...  I think I'll

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext, ugettext_lazy as _
-from django.forms import ValidationError as valerr
+from django.forms import ValidationError as valderr
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from accounts.models import BespokeUser
 
@@ -18,7 +18,7 @@ class BespokeUserCreationForm(UserCreationForm):
             BespokeUser._default_manager.get(username=username)
         except BespokeUser.DoesNotExist:
             return username
-        raise valerr("Duplicate user!")
+        raise valderr("Duplicate user!")
 
 
 class BespokeUserChangeForm(UserChangeForm):

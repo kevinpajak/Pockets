@@ -8,6 +8,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
+"""
+ Of course, these won't be hard-coded.  After all,
+ do you really  want to  connect to my development
+ database?
+"""
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
