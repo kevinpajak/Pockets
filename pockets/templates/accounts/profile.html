@@ -11,9 +11,7 @@
     {% if editable %}
         <form id="user_form" method="POST" action="/accounts/edit_profile/" enctype="multipart/form-data">
             {% csrf_token %}
-            Upload Pic: {{ pic.pic }}    <br />
-            Usertag: {{ form.username }} <br />
-            Biography: {{ form.bio }}    <br /><br />
+            {{ form.as_p }}    <br /><br />
             <input type="submit" name="submit" value="Edit" />
         </form>
     {% else %}

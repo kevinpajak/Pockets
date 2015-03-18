@@ -73,21 +73,16 @@ def profile(
 
 
 """
-Can't seem to update the profile...  Maybe
-reusing   profile.html  is  something of a
-bad idea?
+ I'm thinking  maybe  there should be   two
+ separate forms for the signup  and editing
+ the profile.
 """
 @login_required
-def edit_profile(
-        request, template="accounts/profile.html"):
-    form = ProfileForm(request.POST)
-    pic = ProfileImage(request.POST, request.FILES)
+def edit_profile(request, template="accounts/profile.html"):
+    form = ProfileForm(request.POST or None, instance=request.user)
     if request.method == "POST" and form.is_valid():
-        user = form.save()
-        if 'picture' in request.FILES:
-            user.picture = request.FILES['picture']
-        user.save()
+        form.save()
         return HttpResponseRedirect('/accounts/profile/')
-    cntxt = {"form": form, "pic": pic,
+    cntxt = {"form": form,
              "title": _("Edit Profile"), "editable": True}
     return render(request, template, cntxt)
