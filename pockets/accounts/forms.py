@@ -101,6 +101,36 @@ class ProfileImage(forms.ModelForm):
         model, fields = User, ('picture',)
 
 
+class EditProfileForm(forms.ModelForm):
+
+    first_name = forms.CharField(label=_("First Name"))
+    last_name = forms.CharField(label=_("Last Name"))
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name',)
+
+    def clean_first_name(self):
+        first_name = self.cleaned_data['first_name']
+        if len(first_name) == 0:
+            raise valderr("It's blank, bub...")
+        return first_name
+
+    def clean_last_name(self):
+        last_name = self.cleaned_data['last_name']
+        if len(last_name) == 0:
+            raise valderr("It's blank, bub...")
+        return last_name
+
+    def save(self, commit=True):
+        user = super(EditProfileForm, self).save(commit=False)
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        if commit:
+            user.save()
+        return user
+
+
 class TermsForm(forms.Form):
     err_msg = _('You have to agree to terms!')
     tos = forms.BooleanField(

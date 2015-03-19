@@ -7,7 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.http import base36_to_int
 from django.contrib.auth.tokens import default_token_generator as def_token_gen
 
-from accounts.forms import LoginForm, ProfileForm, ProfileImage
+from accounts.forms import (LoginForm, ProfileForm,
+                            ProfileImage, EditProfileForm)
 from utilities import email
 
 
@@ -72,17 +73,13 @@ def profile(
     return render(request, template, cntxt)
 
 
-"""
- I'm thinking  maybe  there should be   two
- separate forms for the signup  and editing
- the profile.
-"""
 @login_required
-def edit_profile(request, template="accounts/profile.html"):
-    form = ProfileForm(request.POST or None, instance=request.user)
+def edit_profile(
+        request, template="accounts/edit_profile.html"):
+    user_to_edit = User.objects.get(pk=request.user.id)
+    form = EditProfileForm(request.POST or None, instance=user_to_edit)
     if request.method == "POST" and form.is_valid():
         form.save()
         return HttpResponseRedirect('/accounts/profile/')
-    cntxt = {"form": form,
-             "title": _("Edit Profile"), "editable": True}
+    cntxt = {'form': form, 'title': _("Edit Profile")}
     return render(request, template, cntxt)

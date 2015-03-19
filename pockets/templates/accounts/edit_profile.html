@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+</head>
+<body>
+
+{% if user.is_authenticated %}
+    <h1>Let's Edit this Profile...</h1>
+    <form id="edit_form" method="POST" action="/accounts/edit_profile/"
+          enctype="multipart/form-data" >
+        {% csrf_token %}
+        {{ form.as_p }}    <br /><br />
+        <input type="submit"
+               name="submit" value="Edit" />
+    </form>
+{% else %}
+    <a href="/">Go back to homepage!</a>
+{% endif %}
+
+</body>
